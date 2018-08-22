@@ -9,6 +9,7 @@
 <body>
     <h1>Question Game</h1>
     <p>Answer questions with "t" for true or "f" for false</p>
+    <p>Score: <span id="score">0</span></p>
     <button id="button">New Question</button>
     <p id="question"></p>
     <p id="message"></p>
@@ -36,38 +37,45 @@
             {Q:"The letters CPU stand for Central Processing Unit when referring to the “brains” of a computer.",
             A:"t"}];
 
-        var button = document.querySelector("#button");
-        var question = document.querySelector("#question");
-        var message = document.querySelector("#message");
-        var nextQuestion = 0;
+        var button = document.querySelector("#button"); // accesses <button id="button">New Question</button>
+        var displayScore = document.querySelector("#score"); // accesses  <span id="score"></span
+        var question = document.querySelector("#question"); // accesses <p id="question"></p>
+        var message = document.querySelector("#message"); // accesses <p id="message"></p>
+        var nextQuestion = 0; // index referencing next question
+        var score = 0;
 
+        // runs when new question button is clicked
         button.onclick = function() {
             question.innerHTML = qAndA[nextQuestion].Q; // qAndA[0].Q === "A fortnight is a unit of time equal to 12 days."
             nextQuestion++;
-
             message.innerHTML = ""
 
-            if (nextQuestion > 9) {
+            // starts at first question once end of array is reached
+            if (nextQuestion >= qAndA.length) {
                 nextQuestion = 0;
             }
         }
-
+        
+        // checks if guess is correct
         function isCorrect(bool) {
-            if (qAndA[nextQuestion - 1].A === bool) {
-                message.innerHTML = "correct";
+            if (qAndA[nextQuestion - 1].A === bool) { //compares key pressed to answer of current question
+                message.innerHTML = "Correct";
+                score++;
+                displayScore.innerHTML = score; // updates #score html element
             } else {
-                message.innerHTML = "incorrect";
+                message.innerHTML = "Incorrect";
             }
         }
 
+        // handles when a key is released
         document.onkeyup = function (event) {
-            // Determines which key was pressed.
+            // determines which key was pressed.
             var letter = event.key;
 
             if (letter === "t" || letter === "f") {
                 isCorrect(letter);
             } else {
-                console.log("enter 't' or 'f'");
+                message.innerHTML = "enter 't' or 'f'";
             }
         };
 
