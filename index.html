@@ -9,7 +9,7 @@
 <body>
     <h1>Question Game</h1>
     <p>Answer questions with "t" for true or "f" for false</p>
-    <button id="button">New Quesion</button>
+    <button id="button">New Question</button>
     <p id="question"></p>
     <p id="message"></p>
     <script>
@@ -23,7 +23,7 @@
             A: "f"},
             {Q:"A wombat is a marsupial native to Germany.",
             A: "f"},
-            {Q:"Coffee Central was the name of of the coffee shop in the hit sitcom friends?",
+            {Q:"Coffee Central was the name of of the coffee shop in the hit sitcom friends.",
             A: "f"},
             {Q:"When referring to the test taken for entrance into the US military  ASVAB stands for Armed Services Vocational Aptitude Battery.",
             A: "t"},
@@ -31,18 +31,33 @@
             A: "f"},
             {Q: "Robert Edward Lee was the commander of the Confederate Army during the battle of Gettysburg.",
             A: "t"},
-            {Q:"On the popular social website Reddit, AMA stands for All My Algorithms?",
+            {Q:"On the popular social website Reddit, AMA stands for All My Algorithms.",
             A:"f"},
             {Q:"The letters CPU stand for Central Processing Unit when referring to the “brains” of a computer.",
             A:"t"}];
 
         var button = document.querySelector("#button");
-        var question = document.querySelector("#qeustion");
+        var question = document.querySelector("#question");
         var message = document.querySelector("#message");
-        var currentQuestion = 0;
+        var nextQuestion = 0;
 
         button.onclick = function() {
-            // display question
+            question.innerHTML = qAndA[nextQuestion].Q; // qAndA[0].Q === "A fortnight is a unit of time equal to 12 days."
+            nextQuestion++;
+
+            message.innerHTML = ""
+
+            if (nextQuestion > 9) {
+                nextQuestion = 0;
+            }
+        }
+
+        function isCorrect(bool) {
+            if (qAndA[nextQuestion - 1].A === bool) {
+                message.innerHTML = "correct";
+            } else {
+                message.innerHTML = "incorrect";
+            }
         }
 
         document.onkeyup = function (event) {
@@ -50,11 +65,13 @@
             var letter = event.key;
 
             if (letter === "t" || letter === "f") {
-                //answer question
+                isCorrect(letter);
             } else {
                 console.log("enter 't' or 'f'");
             }
         };
+
+
     </script>
 </body>
 </html>
