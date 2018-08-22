@@ -41,24 +41,34 @@
         var displayScore = document.querySelector("#score"); // accesses  <span id="score"></span
         var question = document.querySelector("#question"); // accesses <p id="question"></p>
         var message = document.querySelector("#message"); // accesses <p id="message"></p>
+        var currentQuestion = 0;
         var nextQuestion = 0; // index referencing next question
         var score = 0;
 
         // runs when new question button is clicked
         button.onclick = function() {
-            question.innerHTML = qAndA[nextQuestion].Q; // qAndA[0].Q === "A fortnight is a unit of time equal to 12 days."
-            nextQuestion++;
+            if (currentQuestion === 0 && nextQuestion === 0) {
+                question.innerHTML = qAndA[currentQuestion].Q; // qAndA[0].Q === "A fortnight is a unit of time equal to 12 days."
+                nextQuestion++;
+            } else {
+                currentQuestion = nextQuestion;
+                nextQuestion++;
+                question.innerHTML = qAndA[currentQuestion].Q; 
+            }
+            
             message.innerHTML = ""
 
             // starts at first question once end of array is reached
             if (nextQuestion >= qAndA.length) {
+                // question.innerHTML = qAndA[currentQuestion].Q;
+                currentQuestion = 0;
                 nextQuestion = 0;
             }
         }
         
         // checks if guess is correct
         function isCorrect(bool) {
-            if (qAndA[nextQuestion - 1].A === bool) { //compares key pressed to answer of current question
+            if (qAndA[currentQuestion].A === bool) { //compares key pressed to answer of current question
                 message.innerHTML = "Correct";
                 score++;
                 displayScore.innerHTML = score; // updates #score html element
