@@ -9,9 +9,40 @@
 <body>
     <h1>Question Game</h1>
     <p>Answer questions with "t" for true or "f" for false</p>
-
+    <button id="button">New Quesion</button>
+    <p id="question"></p>
+    <p id="message"></p>
     <script>
-        
+        var jeopardyArray = [
+            {
+                question: "",
+                answer: ""
+            },
+            {
+                question: "",
+                answer: ""
+            }
+        ];
+
+        var button = document.querySelector("#button");
+        var question = document.querySelector("#qeustion");
+        var message = document.querySelector("#message");
+        var currentQuestion = 0;
+
+        button.onclick = function() {
+            // display question
+        }
+
+        document.onkeyup = function (event) {
+            // Determines which key was pressed.
+            var letter = event.key;
+
+            if (letter === "t" || letter === "f") {
+                //answer question
+            } else {
+                console.log("enter 't' or 'f'");
+            }
+        };
     </script>
 </body>
 </html>
